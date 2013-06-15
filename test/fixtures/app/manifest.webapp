@@ -1,0 +1,20 @@
+{
+  "name": "test app",
+  "description": "test app",
+  "type": "certified",
+  "launch_path": "/index.html",
+  "developer": {},
+  "messages": [],
+  "permissions": {},
+  "locales": {
+    "en-US": {
+      "name": "Test app",
+      "description": "Test app"
+    },
+  },
+  "default_locale": "en-US",
+  "icons": {
+    "60": "icon.png"
+  },
+  "orientation": "portrait-primary"
+}
