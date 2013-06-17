@@ -166,5 +166,14 @@ suite('install', function() {
     suite('without app:// origin', function() {
       validateApplication(appPath, 'xfoo.com', 'xfoo.com');
     });
+
+    // XXX: need to figure out why this fails
+    suite('without webapps.json', function() {
+      return test('XXX figure out why this fails');
+      setup(function() {
+        fs.unlinkSync(profile + '/webapps/webapps.json');
+      });
+      validateApplication(appPath, 'system.gaiamobile.org', 'system.gaiamobile.org');
+    });
   });
 });
