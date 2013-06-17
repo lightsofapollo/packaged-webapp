@@ -19,8 +19,7 @@ var options = {
   // must be a brand new (never run) profile
   target: '/path/to/profile',
   // origin of app usually in the following format:
-  // app://$DOMAIN
-  origin: 'app://'
+  origin: 'mydomain.name'
 };
 
 install(options, function() {

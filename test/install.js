@@ -84,89 +84,87 @@ suite('install', function() {
         }, /target/);
       });
     });
-
-    test('invalid domain', function() {
-      assert.throws(function() {
-        subject.install({
-          target: target,
-          source: source,
-          origin: 'foobar!'
-        });
-      });
-    });
   });
 
   suite('successful install', function() {
-    var appPath = __dirname + '/fixtures/app/';
-    var domain = 'mywebapp.com';
-    var origin = 'app://' + domain;
-    var options;
-    var expectedAppDir;
+    function validateApplication(appPath, domain, origin) {
+      var options;
+      var expectedAppDir;
 
-    setup(function(done) {
-      expectedAppDir = profile + '/' + subject.webappDir + '/' + 'mywebapp.com';
-      options = {
-        source: appPath,
-        target: profile,
-        origin: origin
-      };
+      setup(function(done) {
+        expectedAppDir = profile + '/' + subject.webappDir + '/' + domain;
+        options = {
+          source: appPath,
+          target: profile,
+          origin: origin
+        };
 
-      subject.install(options, done);
-    });
+        subject.install(options, done);
+      });
 
-    function exists(path, desc) {
-      path = path || '';
-      assert.ok(
-        fs.existsSync(expectedAppDir + path),
-        desc || path
-      );
+      function exists(path, desc) {
+        path = path || '';
+        assert.ok(
+          fs.existsSync(expectedAppDir + path),
+          desc || path
+        );
+      }
+
+      test('profile placement', function() {
+        exists(null, 'has directory');
+        exists('/application.zip');
+        exists('/manifest.webapp');
+      });
+
+      test('webapps.json', function() {
+        var content = fs.readFileSync(expectedAppDir + '/../webapps.json');
+        content = JSON.parse(content);
+        assert.ok(content[domain], 'updates webapps.json');
+      });
+
+      suite('launching installed app', function() {
+        // actually run a b2g-desktop instance + marionette
+        setupMarionette();
+
+        test('launching app', function(done) {
+          this.timeout('10s');
+
+          function onComplete(err, result) {
+            if (result) {
+              done();
+            } else {
+              done(new Error('app should be installed'));
+            }
+          }
+
+          device.
+            setScriptTimeout(2500).
+            setContext('chrome').
+            executeAsyncScript(function(domain) {
+              var win = window.wrappedJSObject;
+              var req = win.navigator.mozApps.mgmt.getAll();
+              req.onsuccess = function() {
+                var list = req.result;
+                var len = list.length;
+
+                for (var i = 0; i < len; i++) {
+                  if (list[i].origin.indexOf(domain) !== -1)
+                    return marionetteScriptFinished(true);
+                }
+                return marionetteScriptFinished(false);
+              };
+            }, [domain], onComplete);
+        });
+      });
     }
 
-    test('profile placement', function() {
-      exists(null, 'has directory');
-      exists('/application.zip');
-      exists('/manifest.webapp');
+    var appPath = __dirname + '/fixtures/app';
+    suite('with app:// origin', function() {
+      validateApplication(appPath, 'foobar.com', 'app://foobar.com');
     });
 
-    test('webapps.json', function() {
-      var content = fs.readFileSync(expectedAppDir + '/../webapps.json');
-      content = JSON.parse(content);
-      assert.ok(content[domain], 'updates webapps.json');
-    });
-
-    suite('launching installed app', function() {
-      // actually run a b2g-desktop instance + marionette
-      setupMarionette();
-
-      test('launching app', function(done) {
-        this.timeout('10s');
-
-        function onComplete(err, result) {
-          if (result) {
-            done();
-          } else {
-            done(new Error('app should be installed'));
-          }
-        }
-
-        device.
-          setScriptTimeout(2500).
-          setContext('chrome').
-          executeAsyncScript(function() {
-            var win = window.wrappedJSObject;
-            var req = win.navigator.mozApps.mgmt.getAll();
-            req.onsuccess = function() {
-              var list = req.result;
-              var len = list.length;
-
-              for (var i = 0; i < len; i++) {
-                if (list[i].origin.indexOf('mywebapp.com') !== -1)
-                  return marionetteScriptFinished(true);
-              }
-              return marionetteScriptFinished(false);
-            };
-          }, onComplete);
-      });
+    suite('without app:// origin', function() {
+      validateApplication(appPath, 'xfoo.com', 'xfoo.com');
     });
   });
 });
