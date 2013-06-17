@@ -1,14 +1,16 @@
 {
-  "name": "mozilla-runner",
+  "name": "packaged-webapp",
   "version": "0.0.1",
   "author": "James Lal [:lightsofapollo]",
-  "description": "Firefox / B2G runtime manager.",
+  "description": "Utility module for installing an app as preloaded & packaged app",
   "main": "index.js",
   "keywords": [
     "firefox os",
     "gecko",
     "b2g-desktop",
-    "firefox"
+    "firefox",
+    "webapp",
+    "packaged"
   ],
   "dependencies" : {
     "debug": "*",
