@@ -5,7 +5,8 @@ test/b2g:
 
 .PHONY: test
 test: test/b2g
-	./node_modules/mocha/bin/mocha --ui tdd
+	./node_modules/mocha/bin/mocha --ui tdd \
+		test/install.js
 
 .PHONY: ci
 ci:
