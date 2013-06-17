@@ -1,0 +1,386 @@
+{
+  "bluetooth.gaiamobile.org": {
+    "origin": "app://bluetooth.gaiamobile.org",
+    "installOrigin": "app://bluetooth.gaiamobile.org",
+    "receipt": null,
+    "installTime": 132333986000,
+    "manifestURL": "app://bluetooth.gaiamobile.org/manifest.webapp",
+    "appStatus": 3,
+    "localId": 1
+  },
+  "browser.gaiamobile.org": {
+    "origin": "app://browser.gaiamobile.org",
+    "installOrigin": "app://browser.gaiamobile.org",
+    "receipt": null,
+    "installTime": 132333986000,
+    "manifestURL": "app://browser.gaiamobile.org/manifest.webapp",
+    "appStatus": 3,
+    "localId": 2
+  },
+  "calendar.gaiamobile.org": {
+    "origin": "app://calendar.gaiamobile.org",
+    "installOrigin": "app://calendar.gaiamobile.org",
+    "receipt": null,
+    "installTime": 132333986000,
+    "manifestURL": "app://calendar.gaiamobile.org/manifest.webapp",
+    "appStatus": 3,
+    "localId": 3
+  },
+  "camera.gaiamobile.org": {
+    "origin": "app://camera.gaiamobile.org",
+    "installOrigin": "app://camera.gaiamobile.org",
+    "receipt": null,
+    "installTime": 132333986000,
+    "manifestURL": "app://camera.gaiamobile.org/manifest.webapp",
+    "appStatus": 3,
+    "localId": 4
+  },
+  "clock.gaiamobile.org": {
+    "origin": "app://clock.gaiamobile.org",
+    "installOrigin": "app://clock.gaiamobile.org",
+    "receipt": null,
+    "installTime": 132333986000,
+    "manifestURL": "app://clock.gaiamobile.org/manifest.webapp",
+    "appStatus": 3,
+    "localId": 5
+  },
+  "communications.gaiamobile.org": {
+    "origin": "app://communications.gaiamobile.org",
+    "installOrigin": "app://communications.gaiamobile.org",
+    "receipt": null,
+    "installTime": 132333986000,
+    "manifestURL": "app://communications.gaiamobile.org/manifest.webapp",
+    "appStatus": 3,
+    "localId": 6
+  },
+  "costcontrol.gaiamobile.org": {
+    "origin": "app://costcontrol.gaiamobile.org",
+    "installOrigin": "app://costcontrol.gaiamobile.org",
+    "receipt": null,
+    "installTime": 132333986000,
+    "manifestURL": "app://costcontrol.gaiamobile.org/manifest.webapp",
+    "appStatus": 3,
+    "localId": 7
+  },
+  "email.gaiamobile.org": {
+    "origin": "app://email.gaiamobile.org",
+    "installOrigin": "app://email.gaiamobile.org",
+    "receipt": null,
+    "installTime": 132333986000,
+    "manifestURL": "app://email.gaiamobile.org/manifest.webapp",
+    "appStatus": 3,
+    "localId": 8
+  },
+  "fm.gaiamobile.org": {
+    "origin": "app://fm.gaiamobile.org",
+    "installOrigin": "app://fm.gaiamobile.org",
+    "receipt": null,
+    "installTime": 132333986000,
+    "manifestURL": "app://fm.gaiamobile.org/manifest.webapp",
+    "appStatus": 3,
+    "localId": 9
+  },
+  "gallery.gaiamobile.org": {
+    "origin": "app://gallery.gaiamobile.org",
+    "installOrigin": "app://gallery.gaiamobile.org",
+    "receipt": null,
+    "installTime": 132333986000,
+    "manifestURL": "app://gallery.gaiamobile.org/manifest.webapp",
+    "appStatus": 3,
+    "localId": 10
+  },
+  "homescreen.gaiamobile.org": {
+    "origin": "app://homescreen.gaiamobile.org",
+    "installOrigin": "app://homescreen.gaiamobile.org",
+    "receipt": null,
+    "installTime": 132333986000,
+    "manifestURL": "app://homescreen.gaiamobile.org/manifest.webapp",
+    "appStatus": 3,
+    "localId": 11
+  },
+  "keyboard.gaiamobile.org": {
+    "origin": "app://keyboard.gaiamobile.org",
+    "installOrigin": "app://keyboard.gaiamobile.org",
+    "receipt": null,
+    "installTime": 132333986000,
+    "manifestURL": "app://keyboard.gaiamobile.org/manifest.webapp",
+    "appStatus": 3,
+    "localId": 12
+  },
+  "music.gaiamobile.org": {
+    "origin": "app://music.gaiamobile.org",
+    "installOrigin": "app://music.gaiamobile.org",
+    "receipt": null,
+    "installTime": 132333986000,
+    "manifestURL": "app://music.gaiamobile.org/manifest.webapp",
+    "appStatus": 3,
+    "localId": 13
+  },
+  "pdfjs.gaiamobile.org": {
+    "origin": "app://pdfjs.gaiamobile.org",
+    "installOrigin": "app://pdfjs.gaiamobile.org",
+    "receipt": null,
+    "installTime": 132333986000,
+    "manifestURL": "app://pdfjs.gaiamobile.org/manifest.webapp",
+    "appStatus": 3,
+    "localId": 14
+  },
+  "settings.gaiamobile.org": {
+    "origin": "app://settings.gaiamobile.org",
+    "installOrigin": "app://settings.gaiamobile.org",
+    "receipt": null,
+    "installTime": 132333986000,
+    "manifestURL": "app://settings.gaiamobile.org/manifest.webapp",
+    "appStatus": 3,
+    "localId": 15
+  },
+  "sms.gaiamobile.org": {
+    "origin": "app://sms.gaiamobile.org",
+    "installOrigin": "app://sms.gaiamobile.org",
+    "receipt": null,
+    "installTime": 132333986000,
+    "manifestURL": "app://sms.gaiamobile.org/manifest.webapp",
+    "appStatus": 3,
+    "localId": 16
+  },
+  "system.gaiamobile.org": {
+    "origin": "app://system.gaiamobile.org",
+    "installOrigin": "app://system.gaiamobile.org",
+    "receipt": null,
+    "installTime": 132333986000,
+    "manifestURL": "app://system.gaiamobile.org/manifest.webapp",
+    "appStatus": 3,
+    "localId": 17
+  },
+  "video.gaiamobile.org": {
+    "origin": "app://video.gaiamobile.org",
+    "installOrigin": "app://video.gaiamobile.org",
+    "receipt": null,
+    "installTime": 132333986000,
+    "manifestURL": "app://video.gaiamobile.org/manifest.webapp",
+    "appStatus": 3,
+    "localId": 18
+  },
+  "wallpaper.gaiamobile.org": {
+    "origin": "app://wallpaper.gaiamobile.org",
+    "installOrigin": "app://wallpaper.gaiamobile.org",
+    "receipt": null,
+    "installTime": 132333986000,
+    "manifestURL": "app://wallpaper.gaiamobile.org/manifest.webapp",
+    "appStatus": 3,
+    "localId": 19
+  },
+  "ds-test.gaiamobile.org": {
+    "origin": "app://ds-test.gaiamobile.org",
+    "installOrigin": "app://ds-test.gaiamobile.org",
+    "receipt": null,
+    "installTime": 132333986000,
+    "manifestURL": "app://ds-test.gaiamobile.org/manifest.webapp",
+    "appStatus": 3,
+    "localId": 20
+  },
+  "geoloc.gaiamobile.org": {
+    "origin": "app://geoloc.gaiamobile.org",
+    "installOrigin": "app://geoloc.gaiamobile.org",
+    "receipt": null,
+    "installTime": 132333986000,
+    "manifestURL": "app://geoloc.gaiamobile.org/manifest.webapp",
+    "appStatus": 3,
+    "localId": 21
+  },
+  "image-uploader.gaiamobile.org": {
+    "origin": "app://image-uploader.gaiamobile.org",
+    "installOrigin": "app://image-uploader.gaiamobile.org",
+    "receipt": null,
+    "installTime": 132333986000,
+    "manifestURL": "app://image-uploader.gaiamobile.org/manifest.webapp",
+    "appStatus": 3,
+    "localId": 22
+  },
+  "membuster.gaiamobile.org": {
+    "origin": "app://membuster.gaiamobile.org",
+    "installOrigin": "app://membuster.gaiamobile.org",
+    "receipt": null,
+    "installTime": 132333986000,
+    "manifestURL": "app://membuster.gaiamobile.org/manifest.webapp",
+    "appStatus": 1,
+    "localId": 23
+  },
+  "share-receiver.gaiamobile.org": {
+    "origin": "app://share-receiver.gaiamobile.org",
+    "installOrigin": "app://share-receiver.gaiamobile.org",
+    "receipt": null,
+    "installTime": 132333986000,
+    "manifestURL": "app://share-receiver.gaiamobile.org/manifest.webapp",
+    "appStatus": 1,
+    "localId": 24
+  },
+  "template.gaiamobile.org": {
+    "origin": "app://template.gaiamobile.org",
+    "installOrigin": "app://template.gaiamobile.org",
+    "receipt": null,
+    "installTime": 132333986000,
+    "manifestURL": "app://template.gaiamobile.org/manifest.webapp",
+    "appStatus": 1,
+    "localId": 25
+  },
+  "test-agent.gaiamobile.org": {
+    "origin": "app://test-agent.gaiamobile.org",
+    "installOrigin": "app://test-agent.gaiamobile.org",
+    "receipt": null,
+    "installTime": 132333986000,
+    "manifestURL": "app://test-agent.gaiamobile.org/manifest.webapp",
+    "appStatus": 1,
+    "localId": 26
+  },
+  "test-container.gaiamobile.org": {
+    "origin": "app://test-container.gaiamobile.org",
+    "installOrigin": "app://test-container.gaiamobile.org",
+    "receipt": null,
+    "installTime": 132333986000,
+    "manifestURL": "app://test-container.gaiamobile.org/manifest.webapp",
+    "appStatus": 3,
+    "localId": 27
+  },
+  "test-receiver-1.gaiamobile.org": {
+    "origin": "app://test-receiver-1.gaiamobile.org",
+    "installOrigin": "app://test-receiver-1.gaiamobile.org",
+    "receipt": null,
+    "installTime": 132333986000,
+    "manifestURL": "app://test-receiver-1.gaiamobile.org/manifest.webapp",
+    "appStatus": 1,
+    "localId": 28
+  },
+  "test-receiver-2.gaiamobile.org": {
+    "origin": "app://test-receiver-2.gaiamobile.org",
+    "installOrigin": "app://test-receiver-2.gaiamobile.org",
+    "receipt": null,
+    "installTime": 132333986000,
+    "manifestURL": "app://test-receiver-2.gaiamobile.org/manifest.webapp",
+    "appStatus": 1,
+    "localId": 29
+  },
+  "test-receiver-inline.gaiamobile.org": {
+    "origin": "app://test-receiver-inline.gaiamobile.org",
+    "installOrigin": "app://test-receiver-inline.gaiamobile.org",
+    "receipt": null,
+    "installTime": 132333986000,
+    "manifestURL": "app://test-receiver-inline.gaiamobile.org/manifest.webapp",
+    "appStatus": 1,
+    "localId": 30
+  },
+  "test-sensors.gaiamobile.org": {
+    "origin": "app://test-sensors.gaiamobile.org",
+    "installOrigin": "app://test-sensors.gaiamobile.org",
+    "receipt": null,
+    "installTime": 132333986000,
+    "manifestURL": "app://test-sensors.gaiamobile.org/manifest.webapp",
+    "appStatus": 1,
+    "localId": 31
+  },
+  "testpermission.gaiamobile.org": {
+    "origin": "app://testpermission.gaiamobile.org",
+    "installOrigin": "app://testpermission.gaiamobile.org",
+    "receipt": null,
+    "installTime": 132333986000,
+    "manifestURL": "app://testpermission.gaiamobile.org/manifest.webapp",
+    "appStatus": 3,
+    "localId": 32
+  },
+  "uitest.gaiamobile.org": {
+    "origin": "app://uitest.gaiamobile.org",
+    "installOrigin": "app://uitest.gaiamobile.org",
+    "receipt": null,
+    "installTime": 132333986000,
+    "manifestURL": "app://uitest.gaiamobile.org/manifest.webapp",
+    "appStatus": 3,
+    "localId": 33
+  },
+  "crystalskull.gaiamobile.org": {
+    "origin": "app://crystalskull.gaiamobile.org",
+    "installOrigin": "app://crystalskull.gaiamobile.org",
+    "receipt": null,
+    "installTime": 132333986000,
+    "manifestURL": "app://crystalskull.gaiamobile.org/manifest.webapp",
+    "appStatus": 1,
+    "localId": 34
+  },
+  "cubevid.gaiamobile.org": {
+    "origin": "app://cubevid.gaiamobile.org",
+    "installOrigin": "app://cubevid.gaiamobile.org",
+    "receipt": null,
+    "installTime": 132333986000,
+    "manifestURL": "app://cubevid.gaiamobile.org/manifest.webapp",
+    "appStatus": 1,
+    "localId": 35
+  },
+  "twittershare.gaiamobile.org": {
+    "origin": "app://twittershare.gaiamobile.org",
+    "installOrigin": "app://twittershare.gaiamobile.org",
+    "receipt": null,
+    "installTime": 132333986000,
+    "manifestURL": "app://twittershare.gaiamobile.org/manifest.webapp",
+    "appStatus": 3,
+    "localId": 36
+  },
+  "m.here.com": {
+    "origin": "app://m.here.com",
+    "installOrigin": "https://marketplace.firefox.com",
+    "receipt": null,
+    "installTime": 132333986000,
+    "manifestURL": "https://marketplace.firefox.com/app/7eccfd71-2765-458d-983f-078580b46a11/manifest.webapp",
+    "removable": false,
+    "localId": 37,
+    "etag": null,
+    "packageEtag": null,
+    "appStatus": 1
+  },
+  "marketplace.firefox.com": {
+    "origin": "app://marketplace.firefox.com",
+    "installOrigin": "https://marketplace.firefox.com",
+    "receipt": null,
+    "installTime": 132333986000,
+    "manifestURL": "https://marketplace.firefox.com/packaged.webapp",
+    "removable": false,
+    "localId": 38,
+    "etag": "\"b7d42ce516111ce05c401c95b6f85398\"",
+    "packageEtag": "\"e35c91518af660491aa55b94d5dc8ba5\"",
+    "appStatus": 2
+  },
+  "hoststubtest": {
+    "origin": "http://hoststubtest.mykzilla.org",
+    "installOrigin": "http://hoststubtest.mykzilla.org",
+    "receipt": null,
+    "installTime": 132333986000,
+    "manifestURL": "http://hoststubtest.mykzilla.org/manifest.webapp",
+    "removable": true,
+    "localId": 39,
+    "etag": null,
+    "packageEtag": null,
+    "appStatus": 1
+  },
+  "mochitest": {
+    "origin": "http://mochi.test:8888",
+    "installOrigin": "http://mochi.test:8888",
+    "receipt": null,
+    "installTime": 132333986000,
+    "manifestURL": "http://mochi.test:8888/manifest.webapp",
+    "removable": true,
+    "localId": 40,
+    "etag": null,
+    "packageEtag": null,
+    "appStatus": 1
+  },
+  "packstubtest": {
+    "origin": "app://packstubtest",
+    "installOrigin": "https://marketplace.firefox.com",
+    "receipt": null,
+    "installTime": 132333986000,
+    "manifestURL": "https://marketplace.firefox.com/app/47f70abc-3a9f-492b-af61-49832b24244a/manifest.webapp",
+    "removable": true,
+    "localId": 41,
+    "etag": null,
+    "packageEtag": null,
+    "appStatus": 1
+  }
+}

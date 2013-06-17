@@ -10,7 +10,7 @@
     "en-US": {
       "name": "Test app",
       "description": "Test app"
-    },
+    }
   },
   "default_locale": "en-US",
   "icons": {
