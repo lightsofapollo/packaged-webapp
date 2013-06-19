@@ -4,6 +4,7 @@ suite('install', function() {
       host = require('marionette-host-environment'),
       assert = require('assert'),
       subject = require('../lib/install'),
+      appPath = __dirname + '/fixtures/app',
       fs = require('fs');
 
   var b2gProcess;
@@ -29,6 +30,36 @@ suite('install', function() {
       done();
     });
   });
+
+  /**
+   * Finds origins for each installed app.
+   *
+   * @param {Function} callback [err, [origin, origin, ...]]
+   */
+  function getInstalledOrigins(callback) {
+    function handleResult(err, content) {
+      if (err) {
+        return callback(err);
+      }
+      callback(null, content);
+    }
+
+    device.
+      goUrl('app://system.gaiamobile.org').
+      setContext('chrome').
+      executeAsyncScript(function() {
+        var win = window.wrappedJSObject;
+        var req = win.navigator.mozApps.mgmt.getAll();
+        req.onsuccess = function() {
+          var list = req.result;
+          var len = list.length;
+          var results = req.result.map(function(app) {
+            return app.origin;
+          });
+          marionetteScriptFinished(results);
+        };
+      }, handleResult);
+  }
 
   function setupMarionette() {
     // setup device
@@ -65,28 +96,37 @@ suite('install', function() {
     var target = __dirname + '/fixtures';
     var source = __dirname + '/fixtures/app';
 
-    test('missing source', function() {
-      assert.throws(function() {
-        subject.install({
-          origin: origin,
-          target: target,
-          source: ''
-        }, /source/);
+    test('no options', function(done) {
+      subject.installApp(target, {}, function(err) {
+        if (!err) return done(new Error('should send error'));
+        done();
       });
     });
 
-    test('missing target', function() {
-      assert.throws(function() {
-        subject.install({
-          origin: origin,
-          target: __dirname + '/fakefoobar/',
-          source: source
-        }, /target/);
+    test('no origin', function(done) {
+      subject.installApp(target, { source: source }, function(err) {
+        if (!err) return done(new Error('should send error'));
+        assert.ok(err.message.indexOf('origin') !== -1);
+        done();
       });
+    });
+
+    test('missing source', function(done) {
+      subject.installApp(
+        target,
+        {
+          origin: origin,
+          source: ''
+        },
+        function(err) {
+          assert.ok(err.message.match(/source/));
+          done();
+        }
+      );
     });
   });
 
-  suite('successful install', function() {
+  suite('#installApp', function() {
     function validateApplication(appPath, domain, origin) {
       var options;
       var expectedAppDir;
@@ -95,11 +135,10 @@ suite('install', function() {
         expectedAppDir = profile + '/' + subject.webappDir + '/' + domain;
         options = {
           source: appPath,
-          target: profile,
           origin: origin
         };
 
-        subject.install(options, done);
+        subject.installApp(profile, options, done);
       });
 
       function exists(path, desc) {
@@ -117,7 +156,8 @@ suite('install', function() {
       });
 
       test('webapps.json', function() {
-        var content = fs.readFileSync(expectedAppDir + '/../webapps.json');
+        var content =
+          fs.readFileSync(expectedAppDir + '/../webapps.json', 'utf8');
         content = JSON.parse(content);
         assert.ok(content[domain], 'updates webapps.json');
       });
@@ -126,45 +166,24 @@ suite('install', function() {
         // actually run a b2g-desktop instance + marionette
         setupMarionette();
 
-        test('launching app', function(done) {
+        test('checking apps existance', function(done) {
           this.timeout('10s');
-
-          function onComplete(err, result) {
-            if (result) {
-              done();
-            } else {
-              done(new Error('app should be installed'));
+          getInstalledOrigins(function(err, list) {
+            if (list.indexOf('app://' + domain) === -1) {
+              return done(new Error('domain is not installed ' + domain));
             }
-          }
-
-          device.
-            setScriptTimeout(2500).
-            setContext('chrome').
-            executeAsyncScript(function(domain) {
-              var win = window.wrappedJSObject;
-              var req = win.navigator.mozApps.mgmt.getAll();
-              req.onsuccess = function() {
-                var list = req.result;
-                var len = list.length;
-
-                for (var i = 0; i < len; i++) {
-                  if (list[i].origin.indexOf(domain) !== -1)
-                    return marionetteScriptFinished(true);
-                }
-                return marionetteScriptFinished(false);
-              };
-            }, [domain], onComplete);
+            done();
+          });
         });
       });
     }
 
-    var appPath = __dirname + '/fixtures/app';
     suite('with app:// origin', function() {
-      validateApplication(appPath, 'foobar.com', 'app://foobar.com');
+      validateApplication(appPath, 'foobar1.com', 'app://foobar1.com');
     });
 
     suite('without app:// origin', function() {
-      validateApplication(appPath, 'xfoo.com', 'xfoo.com');
+      validateApplication(appPath, 'mofo.com', 'mofo.com');
     });
 
     // XXX: need to figure out why this fails
@@ -173,7 +192,31 @@ suite('install', function() {
       setup(function() {
         fs.unlinkSync(profile + '/webapps/webapps.json');
       });
-      validateApplication(appPath, 'system.gaiamobile.org', 'system.gaiamobile.org');
+      validateApplication(
+        appPath, 'system.gaiamobile.org', 'system.gaiamobile.org'
+      );
     });
   });
+
+  suite('#installApps', function() {
+    setupMarionette();
+
+    var apps = [
+      { source: appPath, origin: 'app://myfoo.com' },
+      { source: appPath, origin: 'app://yourfooo.com' }
+    ];
+
+    setup(function(done) {
+      subject.installApps(profile, apps, done);
+    });
+
+    test('all apps are installed', function(done) {
+      getInstalledOrigins(function(err, installed) {
+        assert.ok(installed.indexOf(apps[0].origin), apps[0].origin);
+        assert.ok(installed.indexOf(apps[1].origin), apps[1].origin);
+        done();
+      });
+    });
+  });
+
 });
