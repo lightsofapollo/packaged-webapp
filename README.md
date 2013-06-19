@@ -10,20 +10,23 @@ Status](https://travis-ci.org/lightsofapollo/packaged-webapp.png)](https://travi
 
 ```js
 
-var install = require('packaged-webapp').install;
+var webapp = require('packaged-webapp');
 var profile = '/path/to/profile';
 
 var options = {
   // source must contain a manifest.webapp file
   source: '/path/to/webapp',
-  // must be a brand new (never run) profile
-  target: '/path/to/profile',
   // origin of app usually in the following format:
   origin: 'mydomain.name'
 };
 
-install(options, function() {
+webapp.installApp(profile, options, function() {
   // yey app is installed into profile
+});
+
+// multiple apps in parallel
+webapp.installApps(profile, [optionsForA, ...], function() {
+  // ...
 });
 
 ```

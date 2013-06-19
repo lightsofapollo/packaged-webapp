@@ -1,3 +1,5 @@
+# 0.1.0
+  - add multi app installation support 
 # 0.0.3
   - allow empty webapps.json
 # 0.0.2
