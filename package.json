@@ -21,7 +21,7 @@
     "mocha": "~1.10",
     "marionette-host-environment": "~0.1.0",
     "mozilla-profile-builder": "~0.0.2",
-    "marionette-client": "~0.5.6",
+    "marionette-client": "~0.5.7",
     "tmp": "~0.0.20",
     "ncp": "~0.4"
   },
