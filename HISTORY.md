@@ -1,3 +1,5 @@
+# 0.1.1
+  - update api signature in main export
 # 0.1.0
   - add multi app installation support 
 # 0.0.3
