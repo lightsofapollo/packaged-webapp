@@ -1,3 +1,5 @@
+ # 0.1.2
+  - testing fixes / doc updates / dep updates
 # 0.1.1
   - update api signature in main export
 # 0.1.0
