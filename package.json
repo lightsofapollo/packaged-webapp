@@ -1,6 +1,6 @@
 {
   "name": "packaged-webapp",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "James Lal [:lightsofapollo]",
   "description": "Utility module for installing an app as preloaded & packaged app",
   "main": "index.js",
@@ -19,8 +19,8 @@
   },
   "devDependencies": {
     "mocha": "~1.10",
-    "marionette-host-environment": "~0.1.0",
-    "mozilla-profile-builder": "~0.0.2",
+    "marionette-host-environment": "~0.3.1",
+    "mozilla-profile-builder": "~0.1.1",
     "marionette-client": "~0.5.7",
     "tmp": "~0.0.20",
     "ncp": "~0.4"

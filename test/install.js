@@ -18,7 +18,10 @@ suite('install', function() {
   setup(function(done) {
     var options = {
       runtime: __dirname + '/b2g',
-      userPrefs: {
+      settings: {
+        'ftu.manifestURL': null
+      },
+      prefs: {
         'marionette.defaultPrefs.enabled': true,
         'marionette.defaultPrefs.port': marionettePort
       }
@@ -45,7 +48,7 @@ suite('install', function() {
     }
 
     device.
-      goUrl('app://system.gaiamobile.org').
+      goUrl('app://system.gaiamobile.org/index.html').
       setContext('chrome').
       executeAsyncScript(function() {
         var win = window.wrappedJSObject;
@@ -126,7 +129,7 @@ suite('install', function() {
     });
   });
 
-  suite('#installApp', function() {
+  suite.only('#installApp', function() {
     function validateApplication(appPath, domain, origin) {
       var options;
       var expectedAppDir;
@@ -199,8 +202,6 @@ suite('install', function() {
   });
 
   suite('#installApps', function() {
-    setupMarionette();
-
     var apps = [
       { source: appPath, origin: 'app://myfoo.com' },
       { source: appPath, origin: 'app://yourfooo.com' }
@@ -210,13 +211,73 @@ suite('install', function() {
       subject.installApps(profile, apps, done);
     });
 
+    setupMarionette();
+
     test('all apps are installed', function(done) {
       getInstalledOrigins(function(err, installed) {
-        assert.ok(installed.indexOf(apps[0].origin), apps[0].origin);
-        assert.ok(installed.indexOf(apps[1].origin), apps[1].origin);
+        assert.ok(installed.indexOf(apps[0].origin) !== -1, apps[0].origin);
+        assert.ok(installed.indexOf(apps[1].origin) !== -1, apps[1].origin);
         done();
       });
     });
+  });
+
+  suite('luanch an installed app', function() {
+    var origin = 'app://myfoo.com';
+    var apps = [
+      { source: appPath, origin: origin }
+    ];
+
+    setup(function(done) {
+      subject.installApps(profile, apps, done);
+    });
+
+    setupMarionette();
+
+    test('all apps are installed', function(done) {
+      this.timeout('10s');
+
+      // wait for system to startup
+      device.goUrl('app://system.gaiamobile.org/index.html');
+
+      // switch into chrome space
+      device.setContext('chrome');
+
+      // find app and launch the thing
+      device.executeAsyncScript(function(origin) {
+        var win = window.wrappedJSObject;
+        var req = win.navigator.mozApps.mgmt.getAll();
+        var list = [];
+        req.onsuccess = function(e) {
+          e.target.result.forEach(function(app) {
+            if (app.origin.indexOf(origin) !== -1) {
+              marionetteScriptFinished();
+            }
+          });
+          marionetteScriptFinished(false);
+        };
+      }, [origin]);
+
+      // back to content
+      device.setContext('content');
+
+      // find the iframe in which the app has been launched
+      device.findElement('iframe[src~="' + origin + '"]', function(err, el) {
+        assert.ok(el, 'has element');
+
+        // wait until its visible
+        function waitForVisible() {
+          el.displayed(function(err, isDisplayed) {
+            if (isDisplayed) return done();
+            setTimeout(waitForVisible, 250);
+          });
+        }
+
+        // poll for visibility
+        waitForVisible();
+      });
+    });
+
   });
 
 });
