@@ -5,6 +5,7 @@ suite('install', function() {
       assert = require('assert'),
       subject = require('../lib/install'),
       appPath = __dirname + '/fixtures/app',
+      emptyPort = require('empty-port'),
       fs = require('fs');
 
   var b2gProcess;
@@ -12,7 +13,15 @@ suite('install', function() {
   var profile;
 
   // marionette port to use
-  var marionettePort = 60045;
+  var marionettePort;
+
+  setup(function(done) {
+    emptyPort({ startPort: 60000 }, function(err, port) {
+      if (err) return done(err);
+      marionettePort = port;
+      done();
+    });
+  });
 
   // create the profile
   setup(function(done) {
@@ -26,6 +35,7 @@ suite('install', function() {
         'marionette.defaultPrefs.port': marionettePort
       }
     };
+
     var builder = require('mozilla-profile-builder').b2g;
     builder.profile(options, function(err, _profile) {
       if (err) return done(err);
@@ -49,19 +59,11 @@ suite('install', function() {
 
     device.
       goUrl('app://system.gaiamobile.org/index.html').
-      setContext('chrome').
-      executeAsyncScript(function() {
-        var win = window.wrappedJSObject;
-        var req = win.navigator.mozApps.mgmt.getAll();
-        req.onsuccess = function() {
-          var list = req.result;
-          var len = list.length;
-          var results = req.result.map(function(app) {
-            return app.origin;
-          });
-          marionetteScriptFinished(results);
-        };
-      }, handleResult);
+      apps.list(function(err, apps) {
+        callback(null, apps.map(function(app) {
+          return app.origin;
+        }));
+      });
   }
 
   function setupMarionette() {
@@ -80,6 +82,7 @@ suite('install', function() {
         var driver = new Marionette.Drivers.Tcp({ port: marionettePort });
         driver.connect(function() {
           device = new Marionette.Client(driver);
+          device.plugin('apps', require('marionette-apps'));
           device.startSession(done);
         });
       });
@@ -88,11 +91,10 @@ suite('install', function() {
     teardown(function(done) {
       device.deleteSession(function() {
         b2gProcess.kill();
-        done();
+        b2gProcess.on('exit', done);
       });
     });
   }
-
 
   suite('invalid installs', function() {
     var origin = 'foobar.com';
@@ -129,7 +131,7 @@ suite('install', function() {
     });
   });
 
-  suite.only('#installApp', function() {
+  suite('#installApp', function() {
     function validateApplication(appPath, domain, origin) {
       var options;
       var expectedAppDir;
@@ -143,6 +145,9 @@ suite('install', function() {
 
         subject.installApp(profile, options, done);
       });
+
+      // its important that this comes after installApps
+      setupMarionette();
 
       function exists(path, desc) {
         path = path || '';
@@ -166,9 +171,6 @@ suite('install', function() {
       });
 
       suite('launching installed app', function() {
-        // actually run a b2g-desktop instance + marionette
-        setupMarionette();
-
         test('checking apps existance', function(done) {
           this.timeout('10s');
           getInstalledOrigins(function(err, list) {
@@ -211,13 +213,19 @@ suite('install', function() {
       subject.installApps(profile, apps, done);
     });
 
+    // its important that this comes after installApps
     setupMarionette();
 
     test('all apps are installed', function(done) {
       getInstalledOrigins(function(err, installed) {
-        assert.ok(installed.indexOf(apps[0].origin) !== -1, apps[0].origin);
-        assert.ok(installed.indexOf(apps[1].origin) !== -1, apps[1].origin);
-        done();
+        var err = null;
+        try {
+          assert.ok(installed.indexOf(apps[0].origin) !== -1, apps[0].origin);
+          assert.ok(installed.indexOf(apps[1].origin) !== -1, apps[1].origin);
+        } catch (e) {
+          err = e;
+        }
+        done(err);
       });
     });
   });
@@ -232,50 +240,11 @@ suite('install', function() {
       subject.installApps(profile, apps, done);
     });
 
+    // its important that this comes after installApps
     setupMarionette();
 
     test('all apps are installed', function(done) {
-      this.timeout('10s');
-
-      // wait for system to startup
-      device.goUrl('app://system.gaiamobile.org/index.html');
-
-      // switch into chrome space
-      device.setContext('chrome');
-
-      // find app and launch the thing
-      device.executeAsyncScript(function(origin) {
-        var win = window.wrappedJSObject;
-        var req = win.navigator.mozApps.mgmt.getAll();
-        var list = [];
-        req.onsuccess = function(e) {
-          e.target.result.forEach(function(app) {
-            if (app.origin.indexOf(origin) !== -1) {
-              marionetteScriptFinished();
-            }
-          });
-          marionetteScriptFinished(false);
-        };
-      }, [origin]);
-
-      // back to content
-      device.setContext('content');
-
-      // find the iframe in which the app has been launched
-      device.findElement('iframe[src~="' + origin + '"]', function(err, el) {
-        assert.ok(el, 'has element');
-
-        // wait until its visible
-        function waitForVisible() {
-          el.displayed(function(err, isDisplayed) {
-            if (isDisplayed) return done();
-            setTimeout(waitForVisible, 250);
-          });
-        }
-
-        // poll for visibility
-        waitForVisible();
-      });
+      device.apps.launch(origin, done);
     });
 
   });
